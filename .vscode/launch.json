@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [ 
+    {​
+        "name": "Debug",​
+        "type": "node",​
+        "request": "launch",​
+        "cwd": "${workspaceRoot}",​
+        "runtimeArgs": ["-r", "ts-node/register", "--nolazy"],​
+        "args": ["${workspaceRoot}/src/server.ts"]​,
+        "stopOnEntry": false,
+        "preLaunchTask": null,
+        "runtimeExecutable": null,
+        "env": {
+          "NODE_ENV": "development",
+          "LOG_LEVEL": "debug"
+        }
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach",
+        "port": 9229,
+        "address": "localhost",
+        "restart": true,
+        "sourceMaps": true,
+        "localRoot": "${workspaceRoot}"
+      },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Build",
+      "program": "${workspaceFolder}\\src\\server.ts",
+      "preLaunchTask": "npm: build",
+      "sourceMaps": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    }
+  ]
+}
