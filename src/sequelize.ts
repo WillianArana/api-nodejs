@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-import { models } from './app/config/models';
+// import { models } from './app/config/models';
 
 //#region Configuração do ORM Sequelize obtidas no arquivo .env
 dotenv.config({ path: './.env' });
@@ -13,6 +13,7 @@ const options = {
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
   storage: ':memory:',
+  models: [__dirname + '/app/models'],
   pool: {
     max: 5,
     min: 0,
@@ -23,7 +24,6 @@ const options = {
 //#endregion
 
 const _sequelize = new Sequelize(options);
-_sequelize.addModels(models);
 _sequelize.authenticate()
   .then(() => {
     console.log('DB connection sucessful.');

@@ -1,8 +1,13 @@
 import { Table, Model, Column, DataType, Length, PrimaryKey } from 'sequelize-typescript';
 import { IUsuario } from '../interfaces/iusuario';
 
+/**
+ * @Obs: A classe deve conter o 'default'
+ * @Doc: https://www.npmjs.com/package/sequelize-typescript#configuration
+ */
+
 @Table({ tableName: 'usuario', timestamps: false })
-export class UsuarioModel extends Model<UsuarioModel> implements IUsuario {
+export default class UsuarioModel extends Model<UsuarioModel> implements IUsuario {
 
   @PrimaryKey
   @Column

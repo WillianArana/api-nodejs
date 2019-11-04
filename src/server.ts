@@ -6,10 +6,6 @@ import { sequelize } from './sequelize';
 import { Application } from 'express';
 import { App } from './app';
 
-//#region import controlls
-import './app/config/controllers';
-//#endregion
-
 class Server {
   static init() {
     if (!!!this.server) {
@@ -39,8 +35,9 @@ class Server {
     App.createServer(server);
   }
 }
-
+//#region Inicio da aplicação
 (async () => {
   await sequelize.sync({ force: false, alter: true });
   Server.init();
 })();
+//#endregionS

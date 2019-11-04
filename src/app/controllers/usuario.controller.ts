@@ -3,7 +3,11 @@ import { controller, response, request, requestParam, httpGet, httpPost, httpPut
 import { Request, Response } from 'express';
 import { UsuarioService } from '../services/usuario.service';
 import { TYPES } from '../config/types';
-import { Handlers } from '../config/handlers';
+import { Handlers } from './handlers/handlers';
+
+/**
+ * Toda vez que criar um novo controle lembre-se de importa-lo na configuração do arquivo 'inversify.config.ts'
+ */
 
 @controller('/usuarios')
 export class UsuarioController {

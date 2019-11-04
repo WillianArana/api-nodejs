@@ -3,7 +3,12 @@ import { TYPES } from './types';
 import { IService } from '../interfaces/iservice';
 import { UsuarioService } from '../services/usuario.service';
 
-//#region Novas class que seram injetas são adicionadas aqui!
+//#region Novos controlles aqui!
+import '../controllers/usuario.controller';
+
+//#endregion
+
+//#region Novas class injetas aqui!
 const container = new Container();
 container.bind<IService>(TYPES.Service).to(UsuarioService).inSingletonScope();
 

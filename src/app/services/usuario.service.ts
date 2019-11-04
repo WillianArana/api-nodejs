@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 import { IService } from '../interfaces/iservice';
 import { sequelize } from '../../sequelize';
-import { UsuarioModel } from '../models/usuario.model';
 import { IUsuario } from '../interfaces/iusuario';
+import UsuarioModel from '../models/usuario.model';
 
 @injectable()
 export class UsuarioService implements IService {
