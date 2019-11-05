@@ -6,7 +6,7 @@ import { TYPES } from '../config/types';
 import { Handlers } from './handlers/handlers';
 
 /**
- * Toda vez que criar um novo controle lembre-se de importa-lo na configuração do arquivo 'inversify.config.ts'
+ * Quando criar um novo controle lembre-se de importa-lo na configuração do arquivo 'inversify.config.ts'
  */
 
 @controller('/usuarios')
