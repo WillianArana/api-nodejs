@@ -25,7 +25,7 @@ const logOptions = {
 //#endregion
 
 export class Winston {
-  public static configLog(app: Application) {
+  public static configLog(app: Application): void {
     app.use(logger({
       transports: [
         new winston.transports.File(logOptions.file),

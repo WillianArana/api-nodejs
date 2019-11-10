@@ -7,7 +7,7 @@ import { Application } from 'express';
 import { App } from './app';
 
 class Server {
-  static init() {
+  static init(): void {
     if (!!!this.server) {
       this.server = new Server();
     }
@@ -23,15 +23,15 @@ class Server {
     this.createServer(server);
   }
 
-  private useBodyParserJson(app: Application) {
+  private useBodyParserJson(app: Application): void {
     app.use(json());
   }
 
-  private useBodyParserUrlencoded(app: Application) {
+  private useBodyParserUrlencoded(app: Application): void {
     app.use(urlencoded({ extended: true }));
   }
 
-  private createServer(server: InversifyExpressServer) {
+  private createServer(server: InversifyExpressServer): void {
     App.createServer(server);
   }
 }

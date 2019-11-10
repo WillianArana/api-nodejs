@@ -1,26 +1,25 @@
+"use strict";
 const gulp = require("gulp");
-const uglify = require("gulp-uglify");
-const babel = require("gulp-babel");
+const minify = require("gulp-babel-minify");
 
-// Dev Paths
-var src = "./dist/bin/src/**/*.js";
+var src = "./dist/bin/**/*.js";
 
-// Dist Paths
-var bin = "./dist/bin/src";
+var bin = "./dist/bin";
 
-// Scripts Task
-gulp.task("scripts", function() {
+gulp.task("minify", function() {
   return gulp
     .src(src)
     .pipe(
-      babel({
-        presets: ["@babel/env"]
+      minify({
+        mangle: {
+          keepFnName: false,
+          keepClassName: false
+        }
       })
     )
-    .pipe(uglify())
     .pipe(gulp.dest(bin));
 });
 
 gulp.task("watch", function() {
-  gulp.watch([src], ["scripts"]);
+  gulp.watch([src], ["minify"]);
 });

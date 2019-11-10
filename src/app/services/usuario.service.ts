@@ -14,15 +14,15 @@ export class UsuarioService implements IService {
     });
   }
 
-  adicionarUsuario(usuario: UsuarioModel) {
+  adicionarUsuario(usuario: UsuarioModel): void {
     this.repo.create(usuario);
   }
 
-  modificarUsuario(usuario: UsuarioModel, id: number) {
+  modificarUsuario(usuario: UsuarioModel, id: number): void {
     this.repo.update(usuario, { where: { id } });
   }
 
-  excluirUsuario(id: number) {
+  excluirUsuario(id: number): void {
     this.repo.destroy({ where: { id } });
   }
 }

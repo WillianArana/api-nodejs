@@ -16,7 +16,7 @@ export class UsuarioController {
     @inject(TYPES.Service) private usuarioSevice: UsuarioService) { }
 
   @httpGet('/')
-  public async get(@response() res: Response) {
+  public async get(@response() res: Response): Promise<any> {
     try {
       const usuarios = await this.usuarioSevice.obterUsuarios();
       res.send({ usuarios });
@@ -26,7 +26,7 @@ export class UsuarioController {
   }
 
   @httpPost('/')
-  public async post(@request() req: Request, @response() res: Response) {
+  public async post(@request() req: Request, @response() res: Response): Promise<void> {
     try {
       const usuario = req.body;
       this.usuarioSevice.adicionarUsuario(usuario);
@@ -37,7 +37,7 @@ export class UsuarioController {
   }
 
   @httpPut('/')
-  public async put(@request() req: Request, @response() res: Response) {
+  public async put(@request() req: Request, @response() res: Response): Promise<void> {
     try {
       const id = req.query.id;
       const usuario = req.body;

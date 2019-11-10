@@ -1,6 +1,6 @@
 
 export class TesteService {
-  obterTestes() {
+  obterTestes(): number[] {
     return [1, 2, 3, 4];
   }
 
