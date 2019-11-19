@@ -1,9 +1,18 @@
 import { inject } from 'inversify';
-import { controller, response, request, requestParam, httpGet, httpPost, httpPut, httpDelete } from 'inversify-express-utils';
+import {
+  controller,
+  response,
+  request,
+  requestParam,
+  httpGet,
+  httpPost,
+  httpPut,
+  httpDelete,
+} from 'inversify-express-utils';
 import { Request, Response } from 'express';
 import { UsuarioService } from '../services/usuario.service';
 import { TYPES } from '../config/types';
-import { Handlers } from './handlers/handlers';
+import { Handlers } from '../config/handlers';
 
 /**
  * Quando criar um novo controle lembre-se de importa-lo na configuração do arquivo 'inversify.config.ts'
@@ -11,9 +20,7 @@ import { Handlers } from './handlers/handlers';
 
 @controller('/usuarios')
 export class UsuarioController {
-
-  constructor(
-    @inject(TYPES.Service) private usuarioSevice: UsuarioService) { }
+  constructor(@inject(TYPES.Service) private usuarioSevice: UsuarioService) {}
 
   @httpGet('/')
   public async get(@response() res: Response): Promise<any> {
@@ -26,7 +33,10 @@ export class UsuarioController {
   }
 
   @httpPost('/')
-  public async post(@request() req: Request, @response() res: Response): Promise<void> {
+  public async post(
+    @request() req: Request,
+    @response() res: Response,
+  ): Promise<void> {
     try {
       const usuario = req.body;
       this.usuarioSevice.adicionarUsuario(usuario);
@@ -37,7 +47,10 @@ export class UsuarioController {
   }
 
   @httpPut('/')
-  public async put(@request() req: Request, @response() res: Response): Promise<void> {
+  public async put(
+    @request() req: Request,
+    @response() res: Response,
+  ): Promise<void> {
     try {
       const id = req.query.id;
       const usuario = req.body;
@@ -49,7 +62,10 @@ export class UsuarioController {
   }
 
   @httpDelete('/:id')
-  public async delete(@requestParam('id') id: number, @response() res: Response): Promise<void> {
+  public async delete(
+    @requestParam('id') id: number,
+    @response() res: Response,
+  ): Promise<void> {
     try {
       this.usuarioSevice.excluirUsuario(id);
       Handlers.onSuccess(res, 'Usuário removido!');
@@ -57,5 +73,4 @@ export class UsuarioController {
       Handlers.onError(res, { error: 'Internal server error' });
     }
   }
-
 }

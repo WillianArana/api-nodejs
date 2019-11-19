@@ -29,18 +29,15 @@
       "camelCase"
     ]
   },
-  "trailing-comma": [
-    true,
-    {
-      "singleline": "never",
-      "multiline": {
-        "objects": "ignore",
-        "arrays": "always",
-        "functions": "never",
-        "typeLiterals": "ignore"
-      }
+  "trailing-comma": [true, {
+    "singleline": "never",
+    "multiline": {
+      "objects": "always",
+      "arrays": "always",
+      "functions": "never",
+      "typeLiterals": "ignore"
     }
-  ],
+  }],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
