@@ -9,7 +9,10 @@ import { UsuarioService } from '../services/usuario.service';
 
 //#region Novas classes injetadas aqui!
 const container = new Container();
-container.bind<IService>(TYPES.Service).to(UsuarioService).inSingletonScope();
+container
+  .bind<IService>(TYPES.Service)
+  .to(UsuarioService)
+  .inSingletonScope();
 
 //#endregion
 export default container;
