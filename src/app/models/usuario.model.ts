@@ -1,4 +1,11 @@
-import { Table, Model, Column, DataType, Length, PrimaryKey } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  Length,
+  PrimaryKey,
+} from 'sequelize-typescript';
 import { IUsuario } from '../interfaces/iusuario';
 
 /**
@@ -7,8 +14,8 @@ import { IUsuario } from '../interfaces/iusuario';
  */
 
 @Table({ tableName: 'usuario', timestamps: false })
-export default class UsuarioModel extends Model<UsuarioModel> implements IUsuario {
-
+export default class UsuarioModel extends Model<UsuarioModel>
+  implements IUsuario {
   @PrimaryKey
   @Column
   id?: number;
@@ -16,5 +23,4 @@ export default class UsuarioModel extends Model<UsuarioModel> implements IUsuari
   @Length({ max: 30 })
   @Column(DataType.TEXT)
   nome?: string;
-
 }

@@ -37,7 +37,7 @@ class Server {
 }
 //#region Inicio da aplicação
 (async () => {
-  await sequelize.sync({ force: false, alter: true });
+  await sequelize.sync({ force: false, alter: false });
   Server.init();
 })();
 //#endregionS

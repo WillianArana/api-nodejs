@@ -9,20 +9,25 @@ export class UsuarioService implements IService {
   private readonly repo = sequelize.getRepository(UsuarioModel);
 
   async obterUsuarios(): Promise<IUsuario[]> {
-    return this.repo.findAll({ raw: true }).then((usuarios: IUsuario[]) => {
-      return usuarios;
+    return this.repo.findAll({ raw: true });
+  }
+
+  async qtdUsuarios(): Promise<any> {
+    return sequelize.query('SELECT COUNT(*) AS QTD FROM usuario', {
+      raw: true,
+      plain: true,
     });
   }
 
-  adicionarUsuario(usuario: UsuarioModel): void {
+  async adicionarUsuario(usuario: UsuarioModel): Promise<void> {
     this.repo.create(usuario);
   }
 
-  modificarUsuario(usuario: UsuarioModel, id: number): void {
+  async modificarUsuario(usuario: UsuarioModel, id: number): Promise<void> {
     this.repo.update(usuario, { where: { id } });
   }
 
-  excluirUsuario(id: number): void {
+  async excluirUsuario(id: number): Promise<void> {
     this.repo.destroy({ where: { id } });
   }
 }

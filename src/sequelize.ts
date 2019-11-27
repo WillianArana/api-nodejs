@@ -19,6 +19,9 @@ const options = {
     acquire: 30000,
     idle: 10000,
   },
+  define: {
+    syncOnAssociation: false,
+  },
 } as SequelizeOptions;
 //#endregion
 

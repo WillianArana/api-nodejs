@@ -25,8 +25,19 @@ export class UsuarioController {
   @httpGet('/')
   public async get(@response() res: Response): Promise<any> {
     try {
-      const usuarios = await this.usuarioSevice.obterUsuarios();
+      const usuarios = await this.usuarioSevice?.obterUsuarios();
       res.send({ usuarios });
+    } catch (e) {
+      Handlers.onError(res, { error: 'Internal server error' });
+    }
+  }
+
+  @httpGet('/quantidade')
+  public async qtdUsuarios(@response() res: Response): Promise<any> {
+    try {
+      const qtdUsuarios = await this.usuarioSevice?.qtdUsuarios();
+      const quantidade = qtdUsuarios?.qtd;
+      res.send({ quantidade });
     } catch (e) {
       Handlers.onError(res, { error: 'Internal server error' });
     }
@@ -39,7 +50,7 @@ export class UsuarioController {
   ): Promise<void> {
     try {
       const usuario = req.body;
-      this.usuarioSevice.adicionarUsuario(usuario);
+      await this.usuarioSevice?.adicionarUsuario(usuario);
       Handlers.onCreated(res, 'Usuário criado!');
     } catch (e) {
       Handlers.onError(res, { error: 'Internal server error' });
@@ -54,7 +65,7 @@ export class UsuarioController {
     try {
       const id = req.query.id;
       const usuario = req.body;
-      this.usuarioSevice.modificarUsuario(usuario, id);
+      await this.usuarioSevice?.modificarUsuario(usuario, id);
       Handlers.onSuccess(res, 'Usuário alterado!');
     } catch (e) {
       Handlers.onError(res, { error: 'Internal server error' });
@@ -67,7 +78,7 @@ export class UsuarioController {
     @response() res: Response,
   ): Promise<void> {
     try {
-      this.usuarioSevice.excluirUsuario(id);
+      await this.usuarioSevice?.excluirUsuario(id);
       Handlers.onSuccess(res, 'Usuário removido!');
     } catch (e) {
       Handlers.onError(res, { error: 'Internal server error' });
