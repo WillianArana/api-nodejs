@@ -1,12 +1,11 @@
-"use strict";
-const gulp = require("gulp");
-const minify = require("gulp-babel-minify");
+'use strict';
+const gulp = require('gulp');
+const minify = require('gulp-babel-minify');
 
-var src = "./dist/bin/**/*.js";
+const src = './dist/bin/**/*.js';
+const bin = './dist/bin';
 
-var bin = "./dist/bin";
-
-gulp.task("minify", function() {
+gulp.task('minify', function() {
   return gulp
     .src(src)
     .pipe(
@@ -18,8 +17,4 @@ gulp.task("minify", function() {
       })
     )
     .pipe(gulp.dest(bin));
-});
-
-gulp.task("watch", function() {
-  gulp.watch([src], ["minify"]);
 });

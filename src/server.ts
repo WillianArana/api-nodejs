@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import container from './app/config/inversify.config';
 import { json, urlencoded } from 'body-parser';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { sequelize } from './sequelize';
+// import { sequelize } from './sequelize';
 import { Application } from 'express';
 import { App } from './app';
 
@@ -37,7 +37,7 @@ class Server {
 }
 //#region Inicio da aplicação
 (async () => {
-  await sequelize.sync({ force: false, alter: false });
+  // await sequelize.sync({ force: false, alter: false });
   Server.init();
 })();
 //#endregionS
