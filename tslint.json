@@ -3,7 +3,7 @@
   "extends": ["tslint:recommended"],
   "jsRules": {},
   "rules": {
-    "cyclomatic-complexity": [true, 7],
+    "cyclomatic-complexity": [true, 12],
     "no-console": [false],
     "quotemark": [true, "single", "avoid-escape"],
     "object-literal-sort-keys": false,
@@ -12,7 +12,7 @@
     "semicolon": true,
     "ordered-imports": false,
     "no-trailing-whitespace": true,
-    "interface-name": [true, "always-prefix"],
+    "interface-name": [false, "always-prefix"],
     "no-empty-interface": false,
     "no-unused-expression": true,
     "no-duplicate-variable": true,
@@ -21,6 +21,7 @@
     "max-classes-per-file": [true, 5, "exclude-class-expressions"],
     "no-magic-numbers": [false, 0, 1],
     "member-access": false,
+    "member-ordering": [false, {"order": "fields-first"}],
     "variable-name": [
       true,
       "ban-keywords",

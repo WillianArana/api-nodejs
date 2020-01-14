@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import container from './app/config/inversify.config';
+import router from './router';
 import { json, urlencoded } from 'body-parser';
 import { InversifyExpressServer } from 'inversify-express-utils';
 // import { sequelize } from './sequelize';
@@ -15,7 +16,7 @@ class Server {
   private static server: Server;
 
   private constructor() {
-    const server = new InversifyExpressServer(container);
+    const server = new InversifyExpressServer(container, router);
     server.setConfig((app) => {
       this.useBodyParserUrlencoded(app);
       this.useBodyParserJson(app);
@@ -37,7 +38,7 @@ class Server {
 }
 //#region Inicio da aplicação
 (async () => {
-  // await sequelize.sync({ force: false, alter: false });
+  // await sequelize.sync({ force: true, alter: true });
   Server.init();
 })();
 //#endregionS
