@@ -1,20 +1,14 @@
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { Application } from 'express';
-import { Winston } from './winston';
 
 const port = process.env.SEVER_PORT || 3000;
 
 export class App {
   static createServer(server: InversifyExpressServer): void {
     const app = server.build();
-    this.configLog(app);
     this.disable(app);
     this.setPort(app);
     this.listen(app);
-  }
-
-  private static configLog(app: Application): void {
-    Winston.configLog(app);
   }
 
   private static disable(app: Application): void {

@@ -3,9 +3,10 @@ import container from './app/config/inversify.config';
 import router from './router';
 import { json, urlencoded } from 'body-parser';
 import { InversifyExpressServer } from 'inversify-express-utils';
-// import { sequelize } from './sequelize';
 import { Application } from 'express';
+import { configLog, configLogError } from './winston';
 import { App } from './app';
+// import { sequelize } from './sequelize';
 
 class Server {
   static init(): void {
@@ -20,6 +21,7 @@ class Server {
     server.setConfig((app) => {
       this.useBodyParserUrlencoded(app);
       this.useBodyParserJson(app);
+      this.useWinston(app);
     });
     this.createServer(server);
   }
@@ -30,6 +32,11 @@ class Server {
 
   private useBodyParserUrlencoded(app: Application): void {
     app.use(urlencoded({ extended: true }));
+  }
+
+  private useWinston(app: Application): void {
+    app.use(configLog());
+    app.use(configLogError());
   }
 
   private createServer(server: InversifyExpressServer): void {
