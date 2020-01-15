@@ -1,4 +1,5 @@
 export const TYPES = {
-  Service: Symbol.for('Service'),
   AuthorizeMiddleware: Symbol.for('AuthorizeMiddleware'),
+  AuthService: Symbol.for('AuthService'),
+  UsuarioService: Symbol.for('UsuarioService'),
 };

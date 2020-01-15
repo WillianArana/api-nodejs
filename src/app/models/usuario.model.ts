@@ -3,7 +3,6 @@ import {
   Model,
   Column,
   DataType,
-  Length,
   PrimaryKey,
 } from 'sequelize-typescript';
 import { IUsuario } from '../interfaces/iusuario';
@@ -20,7 +19,12 @@ export default class UsuarioModel extends Model<UsuarioModel>
   @Column
   id?: number;
 
-  @Length({ max: 30 })
-  @Column(DataType.TEXT)
+  @Column(DataType.STRING(30))
   nome?: string;
+
+  @Column(DataType.STRING(12))
+  login?: string;
+
+  @Column(DataType.STRING(155))
+  senha?: string;
 }
