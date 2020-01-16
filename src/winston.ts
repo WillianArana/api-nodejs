@@ -2,6 +2,13 @@ import appRoot from 'app-root-path';
 import winston from 'winston';
 import { format } from 'date-fns';
 import { logger, errorLogger } from 'express-winston';
+import { WinstonTransportSequelize } from './winston-transport-sequelize';
+
+const options = {
+  level: 'info',
+  json: false,
+  colorize: true,
+};
 
 //#region Opções de configuraçao do log
 const logOptions = {
@@ -39,6 +46,7 @@ export function configLog(): any {
     transports: [
       new winston.transports.File(logOptions.fileApp),
       new winston.transports.Console(logOptions.console),
+      new WinstonTransportSequelize(options),
     ],
     format: winston.format.combine(
       winston.format.colorize(),

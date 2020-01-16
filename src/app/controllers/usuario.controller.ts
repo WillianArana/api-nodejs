@@ -20,7 +20,7 @@ import { Handlers } from '../config/handlers';
 
 @controller('/usuarios')
 export class UsuarioController {
-  constructor(@inject(TYPES.Service) private usuarioSevice: UsuarioService) {}
+  constructor(@inject(TYPES.UsuarioService) private usuarioSevice: UsuarioService) { }
 
   @httpGet('/')
   public async get(@response() res: Response): Promise<any> {
