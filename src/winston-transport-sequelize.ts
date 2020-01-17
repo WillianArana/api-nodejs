@@ -1,39 +1,19 @@
 
 import Transport from 'winston-transport';
-
-/*
-
-declare namespace TransportStream {
-  interface TransportStreamOptions {
-    format?: logform.Format;
-    level?: string;
-    silent?: boolean;
-    handleExceptions?: boolean;
-
-    log?(info: any, next: () => void): any;
-    logv?(info: any, next: () => void): any;
-    close?(): void;
-  }
-}
-
-*/
+import { LogService } from './app/services/log.service';
 
 export class WinstonTransportSequelize extends Transport {
 
+  private logService!: LogService;
   constructor(public options: any) {
     super(options);
+    this.logService = LogService.init();
   }
 
   log(info: any, callback: any): any {
-    console.log(info);
-  }
-
-  logv(info: any, callback: any): any {
-    console.log('outra!!!!!');
-  }
-
-  close() {
-    console.log('ok');
+    if (this.logService) {
+      this.logService.notify(info);
+    }
   }
 
 }

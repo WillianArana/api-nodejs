@@ -1,13 +1,10 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import dotenv from 'dotenv';
-import { format } from 'date-fns';
-import fs = require('fs');
-import appRoot from 'app-root-path';
-
-const logStream = fs.createWriteStream(`${appRoot}/src/logs/sql.log`, { flags: 'a' });
+import { LogService } from './app/services/log.service';
 
 //#region Configuração do ORM Sequelize obtidas no arquivo .env
 dotenv.config({ path: './.env' });
+const logService = LogService.init();
 const options = {
   repositoryMode: true,
   host: process.env.DB_HOST,
@@ -18,7 +15,7 @@ const options = {
   port: process.env.DB_PORT,
   syncOnAssociation: false,
   storage: ':memory:',
-  logging: (msg: string) => logStream.write(` ${format(new Date(), 'dd/MM/yyyy HH:mm:ss:SSSS')} -> ${msg}, \n`),
+  logging: (msg: string) => logService.notify(msg),
   models: [__dirname + '/app/models'],
   pool: {
     max: 5,

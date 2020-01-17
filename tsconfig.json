@@ -10,7 +10,7 @@
     "checkJs": true,
     "strict": true,
     "skipLibCheck": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": false,
     "pretty": true,
     "strictNullChecks": true,
