@@ -4,12 +4,6 @@ import { format } from 'date-fns';
 import { logger, errorLogger } from 'express-winston';
 import { WinstonTransportSequelize } from './winston-transport-sequelize';
 
-const options = {
-  level: 'info',
-  json: false,
-  colorize: true,
-};
-
 //#region Opções de configuraçao do log
 const logOptions = {
   fileApp: {
@@ -38,15 +32,26 @@ const logOptions = {
     json: false,
     colorize: true,
   },
+  saveLog: {
+    level: 'info',
+    handleExceptions: true,
+    colorize: false,
+  },
+  saveLogError: {
+    level: 'error',
+    handleExceptions: true,
+    colorize: false,
+  },
 };
 //#endregion
 
 export function configLog(): any {
   return logger({
     transports: [
+      new WinstonTransportSequelize(logOptions.saveLog),
+      new WinstonTransportSequelize(logOptions.saveLogError),
       new winston.transports.File(logOptions.fileApp),
       new winston.transports.Console(logOptions.console),
-      new WinstonTransportSequelize(options),
     ],
     format: winston.format.combine(
       winston.format.colorize(),
@@ -54,8 +59,7 @@ export function configLog(): any {
     ),
     meta: true,
     msg: (req, res: any) => {
-      return `status: ${res.statusCode} - responseTime:${res.responseTime}ms - url:${req.url} - ${req.method} -
-           ${req.ip} - ${format(new Date(), 'dd/MM/yyyy HH:mm:ss')}`;
+      return `status: ${res.statusCode} - ${req.method} - url:${req.url} - ${req.ip} - ${format(new Date(), 'dd/MM/yyyy HH:mm:ss')}`;
     },
     expressFormat: false,
     colorize: false,

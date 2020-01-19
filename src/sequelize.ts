@@ -4,7 +4,6 @@ import { LogService } from './app/services/log.service';
 
 //#region Configuração do ORM Sequelize obtidas no arquivo .env
 dotenv.config({ path: './.env' });
-const logService = LogService.init();
 const options = {
   repositoryMode: true,
   host: process.env.DB_HOST,
@@ -15,7 +14,7 @@ const options = {
   port: process.env.DB_PORT,
   syncOnAssociation: false,
   storage: ':memory:',
-  logging: (msg: string) => logService.notify(msg),
+  logging: (msg: string) => LogService.init().notify(msg),
   models: [__dirname + '/app/models'],
   pool: {
     max: 5,

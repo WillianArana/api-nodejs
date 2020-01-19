@@ -50,6 +50,7 @@
     "gulp-babel-minify": "^0.5.1",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
+    "sequelize-mock": "^0.10.2",
     "ts-node": "^8.5.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^5.20.1",

@@ -4,16 +4,18 @@ import { LogService } from './app/services/log.service';
 
 export class WinstonTransportSequelize extends Transport {
 
-  private logService!: LogService;
+  private sub: any;
   constructor(public options: any) {
     super(options);
-    this.logService = LogService.init();
   }
 
   log(info: any, callback: any): any {
-    if (this.logService) {
-      this.logService.notify(info);
-    }
+    const message = info.message;
+    LogService.init().next(message).then(() => callback());
+  }
+
+  close(): void {
+    LogService.init().unsubscribe(this.sub);
   }
 
 }

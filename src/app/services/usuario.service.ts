@@ -4,16 +4,20 @@ import { sequelize } from '../../sequelize';
 import { IUsuario } from '../interfaces/iusuario';
 import UsuarioModel from '../models/usuario.model';
 
+const repository: any = sequelize.getRepository(UsuarioModel);
+repository.query = sequelize.query;
+
 @injectable()
 export class UsuarioService implements IService {
-  private readonly repo = sequelize.getRepository(UsuarioModel);
+
+  constructor(private repo: any = repository) { }
 
   async obterUsuarios(): Promise<IUsuario[]> {
     return this.repo.findAll({ raw: true });
   }
 
   async qtdUsuarios(): Promise<any> {
-    return sequelize.query('SELECT COUNT(*) AS QTD FROM usuario', {
+    return this.repo.query('SELECT COUNT(*) AS QTD FROM usuario', {
       raw: true,
       plain: true,
     });
@@ -43,5 +47,9 @@ export class UsuarioService implements IService {
 
   async excluirUsuario(id: number): Promise<void> {
     this.repo.destroy({ where: { id } });
+  }
+
+  calcularIMC(peso: number, altura: number): number {
+    return (peso / (altura * altura));
   }
 }

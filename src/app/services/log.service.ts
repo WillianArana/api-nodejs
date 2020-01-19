@@ -2,6 +2,7 @@ import { IService } from '../interfaces/iservice';
 // import { sequelize } from '../../sequelize';
 // import LogModel from '../models/log.model';
 import { Observable } from '../shared/observable';
+// import { sequelize } from '../../sequelize';
 
 // import { format } from 'date-fns';
 // import fs = require('fs');
@@ -18,20 +19,32 @@ export class LogService implements IService {
     }
     return this.logSevice;
   }
-
   private static logSevice: LogService;
-
   private readonly observer!: Observable;
   private constructor() {
     this.observer = new Observable();
-    this.observer.subscribe((msg: any) => {
-      console.log(msg);
+    this.observer.subscribe((txt: any) => {
+      console.log(txt);
+    });
+  }
+
+  next(msg: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      resolve();
     });
   }
 
   notify(data: any): void {
     // logStream.write(` ${format(new Date(), 'dd/MM/yyyy HH:mm:ss:SSSS')} -> ${data}, \n`);
     this.observer.notify(data);
+  }
+
+  subscribe(f: any): void {
+    this.observer.subscribe(f);
+  }
+
+  unsubscribe(f: any): void {
+    this.observer.unsubscribe(f);
   }
 
 }
