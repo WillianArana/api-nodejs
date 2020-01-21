@@ -2,7 +2,7 @@ import appRoot from 'app-root-path';
 import winston from 'winston';
 import { format } from 'date-fns';
 import { logger, errorLogger } from 'express-winston';
-import { WinstonTransportSequelize } from './winston-transport-sequelize';
+import { WinstonTransportSequelize } from './app/shared/log';
 
 //#region Opções de configuraçao do log
 const logOptions = {
@@ -37,11 +37,6 @@ const logOptions = {
     handleExceptions: true,
     colorize: false,
   },
-  saveLogError: {
-    level: 'error',
-    handleExceptions: true,
-    colorize: false,
-  },
 };
 //#endregion
 
@@ -49,7 +44,6 @@ export function configLog(): any {
   return logger({
     transports: [
       new WinstonTransportSequelize(logOptions.saveLog),
-      new WinstonTransportSequelize(logOptions.saveLogError),
       new winston.transports.File(logOptions.fileApp),
       new winston.transports.Console(logOptions.console),
     ],

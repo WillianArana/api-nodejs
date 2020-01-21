@@ -1,4 +1,4 @@
-import { sequelize } from '../../../sequelize';
+import { sequelize } from '../../sequelize';
 
 export function getRepository(model: any): any {
   const repository: any = sequelize.getRepository(model);

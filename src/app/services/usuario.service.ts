@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import { IService } from '../interfaces/iservice';
 import { IUsuario } from '../interfaces/iusuario';
 import UsuarioModel from '../models/usuario.model';
-import { getRepository } from '../shared/repository/repository';
+import { getRepository } from '../shared/repository';
 
 @injectable()
 export class UsuarioService implements IService {

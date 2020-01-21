@@ -1,6 +1,6 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import dotenv from 'dotenv';
-import { LogService } from './app/services/log.service';
+import { LogService } from './app/shared/log';
 
 //#region Configuração do ORM Sequelize obtidas no arquivo .env
 dotenv.config({ path: './.env' });

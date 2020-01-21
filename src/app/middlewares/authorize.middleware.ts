@@ -1,5 +1,5 @@
 import { ForbiddenExeption } from './../exceptions/forbidden.exception';
-import { Handlers } from './../config/handlers';
+import { Handlers } from '../shared/handlers';
 import { injectable } from 'inversify';
 import { BaseMiddleware } from 'inversify-express-utils';
 import { Request, Response, NextFunction } from 'express';

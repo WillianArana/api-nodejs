@@ -1,5 +1,5 @@
 import { BaseExeption } from './base-exeption';
-import { Handlers } from './../config/handlers';
+import { Handlers } from '../shared/handlers';
 import { Request, Response } from 'express';
 
 export class ForbiddenExeption extends BaseExeption {
