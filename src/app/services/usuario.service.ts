@@ -1,16 +1,13 @@
 import { injectable } from 'inversify';
 import { IService } from '../interfaces/iservice';
-import { sequelize } from '../../sequelize';
 import { IUsuario } from '../interfaces/iusuario';
 import UsuarioModel from '../models/usuario.model';
-
-const repository: any = sequelize.getRepository(UsuarioModel);
-repository.query = sequelize.query;
+import { getRepository } from '../shared/repository/repository';
 
 @injectable()
 export class UsuarioService implements IService {
 
-  constructor(private repo: any = repository) { }
+  constructor(private repo: any = getRepository(UsuarioModel)) { }
 
   async obterUsuarios(): Promise<IUsuario[]> {
     return this.repo.findAll({ raw: true });

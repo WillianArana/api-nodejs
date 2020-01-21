@@ -1,4 +1,3 @@
-// import { Model } from 'sequelize-typescript';
 import { sequelize } from '../../../sequelize';
 
 export function getRepository(model: any): any {
