@@ -6,7 +6,7 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import { Application } from 'express';
 import { configLog, configLogError } from './winston';
 import { App } from './app';
-// import { sequelize } from './sequelize';
+import { sequelize } from './sequelize';
 
 class Server {
   static init(): void {
@@ -45,7 +45,10 @@ class Server {
 }
 //#region Inicio da aplicação
 (async () => {
-  // await sequelize.sync({ force: true, alter: true });
+  const isResetDatabase = process.env.npm_package_config_resetDatabase || false;
+  if (isResetDatabase) {
+    await sequelize.sync({ force: true, alter: true });
+  }
   Server.init();
 })();
 //#endregionS

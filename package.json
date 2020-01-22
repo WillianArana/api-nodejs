@@ -1,5 +1,5 @@
 {
-  "name": "vr-financeiro-api",
+  "name": "api-nodejs",
   "version": "1.0.0",
   "description": "",
   "private": false,
@@ -14,7 +14,11 @@
     "test": "mocha -r ts-node/register ./test/*.ts",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "production": "npm run build & npm run gulp",
-    "gulp": "gulp minify"
+    "gulp": "gulp minify",
+    "resetDatabase": "npm config set api-nodejs:resetDatabase true & npm start"
+  },
+  "config": {
+    "resetDatabase": false
   },
   "keywords": [],
   "author": "Willian Cruz Arana",

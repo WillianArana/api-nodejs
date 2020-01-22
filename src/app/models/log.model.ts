@@ -11,10 +11,10 @@ import {
  * @Doc: https://www.npmjs.com/package/sequelize-typescript#configuration
  */
 
-@Table({ tableName: 'log', timestamps: false })
+@Table({ tableName: 'log', initialAutoIncrement: '1', timestamps: false })
 export default class LogModel extends Model<LogModel> {
   @PrimaryKey
-  @Column
+  @Column({ autoIncrement: true, allowNull: false })
   id?: number;
 
   @Column({ type: DataType.INTEGER, field: 'id_usuario' })

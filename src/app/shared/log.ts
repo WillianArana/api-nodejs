@@ -1,26 +1,26 @@
 import Transport from 'winston-transport';
-import { Subscription, Subject, Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 export class WinstonTransportSequelize extends Transport {
 
-  private sub!: Subscription;
-  constructor(public options: any) {
+  constructor(public options: any, private repo: any = getRepository(LogModel)) {
     super(options);
   }
 
   log(info: any, callback: any): any {
-    const message = info.message;
-    this.sub = LogService.init().getData().subscribe((sqlMessage: any) => {
+    const request = info.message;
+    LogService.init().getData().pipe(take(1)).subscribe(async (command: any) => {
 
-      console.log(message);
-      console.log(sqlMessage);
+      const log = {
+        idUsuario: 0,
+        request,
+        command,
+      } as LogModel;
 
+      await this.repo.create(log);
       callback();
     });
-  }
-
-  close(): void {
-    if (this.sub) { this.sub.unsubscribe(); }
   }
 
 }
@@ -28,6 +28,8 @@ export class WinstonTransportSequelize extends Transport {
 import { format } from 'date-fns';
 import fs = require('fs');
 import appRoot from 'app-root-path';
+import { getRepository } from './repository';
+import LogModel from '../models/log.model';
 
 const logStream = fs.createWriteStream(`${appRoot}/src/logs/sql.log`, { flags: 'a' });
 
