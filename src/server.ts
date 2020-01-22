@@ -45,7 +45,7 @@ class Server {
 }
 //#region Inicio da aplicação
 (async () => {
-  const isResetDatabase = process.env.npm_package_config_resetDatabase || false;
+  const isResetDatabase = process.argv.includes('resetDatabase');
   if (isResetDatabase) {
     await sequelize.sync({ force: true, alter: true });
   }
