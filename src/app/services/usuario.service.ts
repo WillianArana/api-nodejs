@@ -16,7 +16,7 @@ export class UsuarioService implements IService {
 
   async obterUsuarios(): Promise<IUsuario[]> {
     return this.repo.findAll({
-      raw: true,
+      raw: false,
       include: [this.repoContato],
     });
   }
