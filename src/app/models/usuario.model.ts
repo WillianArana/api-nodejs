@@ -4,19 +4,21 @@ import {
   Column,
   DataType,
   PrimaryKey,
+  HasMany,
 } from 'sequelize-typescript';
 import { IUsuario } from '../interfaces/iusuario';
+import ContatoModel from './contato.model';
 
 /**
  * @Obs: A classe deve conter o 'default'
  * @Doc: https://www.npmjs.com/package/sequelize-typescript#configuration
  */
 
-@Table({ tableName: 'usuario', timestamps: false })
+@Table({ tableName: 'usuario', initialAutoIncrement: '1', timestamps: false })
 export default class UsuarioModel extends Model<UsuarioModel>
   implements IUsuario {
   @PrimaryKey
-  @Column
+  @Column({ autoIncrement: true, allowNull: false })
   id?: number;
 
   @Column(DataType.STRING(30))
@@ -27,4 +29,7 @@ export default class UsuarioModel extends Model<UsuarioModel>
 
   @Column(DataType.STRING(155))
   senha?: string;
+
+  @HasMany(() => ContatoModel)
+  contatos?: ContatoModel[];
 }

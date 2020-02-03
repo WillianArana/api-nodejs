@@ -3,25 +3,33 @@ import { IService } from '../interfaces/iservice';
 import { IUsuario } from '../interfaces/iusuario';
 import UsuarioModel from '../models/usuario.model';
 import { getRepository } from '../shared/repository';
+import ContatoModel from '../models/contato.model';
+import { sequelize } from '../../sequelize';
 
 @injectable()
 export class UsuarioService implements IService {
 
-  constructor(private repo: any = getRepository(UsuarioModel)) { }
+  constructor(
+    private repo: any = sequelize.getRepository(UsuarioModel),
+    private repoContato: any = getRepository(ContatoModel),
+  ) { }
 
   async obterUsuarios(): Promise<IUsuario[]> {
-    return this.repo.findAll({ raw: true });
-  }
-
-  async qtdUsuarios(): Promise<any> {
-    return this.repo.query('SELECT COUNT(*) AS QTD FROM usuario', {
+    return this.repo.findAll({
       raw: true,
-      plain: true,
+      include: [this.repoContato],
     });
   }
 
+  async qtdUsuarios(): Promise<any> {
+    // return this.repo.query('SELECT COUNT(*) AS QTD FROM usuario', {
+    //   raw: true,
+    //   plain: true,
+    // });
+  }
+
   async getUsers(): Promise<IUsuario[]> {
-    return this.repo.findAll({ raw: true });
+    return this.repo.findAll({ raw: true }, { include: [this.repoContato] });
   }
 
   async getUser(where: any, raw = true): Promise<UsuarioModel | null> {
@@ -35,7 +43,7 @@ export class UsuarioService implements IService {
   }
 
   async adicionarUsuario(usuario: UsuarioModel): Promise<void> {
-    this.repo.create(usuario);
+    this.repo.create(usuario, { include: [this.repoContato] });
   }
 
   async modificarUsuario(usuario: UsuarioModel, id: number): Promise<void> {
