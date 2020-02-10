@@ -1,10 +1,11 @@
 import { injectable } from 'inversify';
+import { sequelize } from '../../sequelize';
 import { IService } from '../interfaces/iservice';
 import { IUsuario } from '../interfaces/iusuario';
+import ContatoModel from '../models/contato.model';
+import TelefoneModel from '../models/telefone.model';
 import UsuarioModel from '../models/usuario.model';
 import { getRepository } from '../shared/repository';
-import ContatoModel from '../models/contato.model';
-import { sequelize } from '../../sequelize';
 
 @injectable()
 export class UsuarioService implements IService {
@@ -12,12 +13,13 @@ export class UsuarioService implements IService {
   constructor(
     private repo: any = sequelize.getRepository(UsuarioModel),
     private repoContato: any = getRepository(ContatoModel),
+    private repoTelefone: any = getRepository(TelefoneModel),
   ) { }
 
   async obterUsuarios(): Promise<IUsuario[]> {
     return this.repo.findAll({
       raw: false,
-      include: [this.repoContato],
+      include: [{ model: this.repoContato, include: this.repoTelefone }],
     });
   }
 
@@ -29,7 +31,7 @@ export class UsuarioService implements IService {
   }
 
   async getUsers(): Promise<IUsuario[]> {
-    return this.repo.findAll({ raw: true }, { include: [this.repoContato] });
+    return this.repo.findAll({ raw: true });
   }
 
   async getUser(where: any, raw = true): Promise<UsuarioModel | null> {
@@ -43,7 +45,7 @@ export class UsuarioService implements IService {
   }
 
   async adicionarUsuario(usuario: UsuarioModel): Promise<void> {
-    this.repo.create(usuario, { include: [this.repoContato] });
+    this.repo.create(usuario, { include: [{ model: this.repoContato, include: this.repoTelefone }] });
   }
 
   async modificarUsuario(usuario: UsuarioModel, id: number): Promise<void> {

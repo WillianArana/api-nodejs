@@ -1,11 +1,5 @@
-import {
-  Table,
-  Model,
-  Column,
-  DataType,
-  PrimaryKey,
-  ForeignKey,
-} from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import TelefoneModel from './telefone.model';
 import UsuarioModel from './usuario.model';
 
 /**
@@ -23,6 +17,6 @@ export default class ContatoModel extends Model<ContatoModel> {
   @Column(DataType.INTEGER)
   usuarioId?: number;
 
-  @Column(DataType.TEXT)
-  numero?: string;
+  @HasMany(() => TelefoneModel)
+  telefones?: TelefoneModel[];
 }
